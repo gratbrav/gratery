@@ -6,11 +6,19 @@ echo time();
 
 echo'<pre>';
 
-echo 'Number<br>';
 $lottery = new \gratery\Lottery\Lottery();
-print_r($lottery->getNumbers());
 
-echo 'SuperNumber<br>';
-print_r($lottery->getSuperNumbers());
+echo "Number - Count <br>";
+
+foreach ($lottery->getNumbers() as $index => $count) {
+    echo "$index  - $count <br>";
+}
+
+echo '<br>';
+
+echo "SuperNumber - Count <br>";
+foreach ($lottery->getSuperNumbers() as $index => $count) {
+    echo "$index  - $count <br>";
+}
 
 echo '</pre>';
