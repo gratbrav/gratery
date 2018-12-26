@@ -1,20 +1,17 @@
 <?php
 
-
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/config.php';
 
 use DiDom\Document;
-
-$startYear = 1955;
-$currentYear = date('Y');
 
 $numberList = $superNumberList = [];
 
 echo time();
 
-for (; $startYear <= $currentYear; $startYear++) {
+for ($year = $config['startYear']; $year <= $config['currentYear']; $year++) {
 
-    $url = 'https://www.lottozahlenonline.de/statistik/lotto-am-samstag/lottozahlen-archiv.php?j=' . $startYear;
+    $url = $config['url'] . $year;
     $document = new Document($url, true);
 
     $posts = $document->find('.zahlensuche_rahmen');
