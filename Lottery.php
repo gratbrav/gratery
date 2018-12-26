@@ -75,29 +75,53 @@ class Lottery
     /**
      * get all numbers from lottery
      *
+     * Configuration params:
+     * - int limit  number of values to return
+     *
+     * @param array  $config  configuration params
      * @return array
      */
-    public function getNumbers()
+    public function getNumbers($config = [])
     {
+        $config = array_merge($this->config['numbers'], $config);
+
         if (count($this->numberList) === 0) {
             $this->parseNumbers();
         }
         arsort($this->numberList);
-        return (array)$this->numberList;
+
+        $numberList = $this->numberList;
+        if (isset($config['limit']) && $config['limit'] != 0) {
+            $numberList = array_slice($numberList, 0, $config['limit'], true);
+        }
+
+        return (array)$numberList;
     }
 
     /**
      * get all super numbers from lottery
      *
+     * Configuration params:
+     * - int limit  number of values to return
+     *
+     * @param array  $config  configuration params
      * @return array
      */
-    public function getSuperNumbers()
+    public function getSuperNumbers($config = [])
     {
+        $config = array_merge($this->config['superNumbers'], $config);
+
         if (count($this->superNumberList) === 0) {
             $this->parseNumbers();
         }
         arsort($this->superNumberList);
-        return (array)$this->superNumberList;
+
+        $superNumberList = $this->superNumberList;
+        if (isset($config['limit']) && $config['limit'] != 0) {
+            $superNumberList = array_slice($superNumberList, 0, $config['limit'], true);
+        }
+
+        return (array)$superNumberList;
     }
 
     /**
@@ -107,6 +131,7 @@ class Lottery
      */
     protected function loadConfig()
     {
+        $config = [];
         include './config.php';
         $this->config = $config;
         return $this;
