@@ -1,0 +1,9 @@
+<?php
+/**
+ * Local Configuration
+ *
+ * This configuration file is for overriding environment-specific configuration information. Copy this file without the
+ * .dist extension at the end and populate values as needed.
+ */
+
+// $config['startYear'] = 2018;
