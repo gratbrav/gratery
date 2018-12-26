@@ -1,0 +1,3 @@
+# gratery
+
+simple lottery counter
