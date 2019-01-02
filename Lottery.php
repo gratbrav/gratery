@@ -16,6 +16,11 @@ class Lottery
     /**
      * @var array
      */
+    protected $lotteryDraw = [];
+
+    /**
+     * @var array
+     */
     protected $numberList = [];
 
     /**
@@ -23,7 +28,9 @@ class Lottery
      */
     protected $superNumberList = [];
 
-
+    /**
+     * Lottery constructor.
+     */
     function __construct()
     {
         $this->loadConfig();
@@ -48,6 +55,9 @@ class Lottery
                 $lotteryDraw = $post->find('.zahlensuche_datum');
                 // echo 'Import: ' . $lotteryDraw[0]->text() . '<br>';
 
+                $lotteryTimestamp = strtotime($lotteryDraw[0]->text());
+                $this->lotteryDraw[$lotteryTimestamp]['date'] = date('d.m.Y', strtotime($lotteryDraw[0]->text()));
+
                 $lotteryNumbers = $post->find('.zahlensuche_zahl');
                 foreach ($lotteryNumbers as $numberEntry) {
                     $number = trim($numberEntry->text());
@@ -55,6 +65,8 @@ class Lottery
                         $this->numberList[$number] = 0;
                     }
                     $this->numberList[$number]++;
+
+                    $this->lotteryDraw[$lotteryTimestamp]['number'][] = $number;
                 }
 
                 $zuperZahl = $post->find('.zahlensuche_zz');
@@ -64,6 +76,8 @@ class Lottery
                         $this->superNumberList[$superNumber] = 0;
                     }
                     $this->superNumberList[$superNumber]++;
+
+                    $this->lotteryDraw[$lotteryTimestamp]['superNumber'] = $superNumber;
                 }
 
             }
