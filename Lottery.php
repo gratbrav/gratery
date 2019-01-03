@@ -3,6 +3,7 @@
 namespace gratery\Lottery;
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/NumberCount.php';
 
 use DiDom\Document;
 
@@ -19,21 +20,12 @@ class Lottery
     protected $lotteryDraw = [];
 
     /**
-     * @var array
-     */
-    protected $numberList = [];
-
-    /**
-     * @var array
-     */
-    protected $superNumberList = [];
-
-    /**
      * Lottery constructor.
      */
     function __construct()
     {
         $this->loadConfig();
+        $this->parseNumbers();
     }
 
     /**
@@ -61,22 +53,12 @@ class Lottery
                 $lotteryNumbers = $post->find('.zahlensuche_zahl');
                 foreach ($lotteryNumbers as $numberEntry) {
                     $number = trim($numberEntry->text());
-                    if (!isset($this->numberList[$number])) {
-                        $this->numberList[$number] = 0;
-                    }
-                    $this->numberList[$number]++;
-
                     $this->lotteryDraw[$lotteryTimestamp]['number'][] = $number;
                 }
 
                 $zuperZahl = $post->find('.zahlensuche_zz');
                 $superNumber = trim($zuperZahl[0]->text());
                 if ($superNumber != '') {
-                    if (!isset($this->superNumberList[$superNumber])) {
-                        $this->superNumberList[$superNumber] = 0;
-                    }
-                    $this->superNumberList[$superNumber]++;
-
                     $this->lotteryDraw[$lotteryTimestamp]['superNumber'] = $superNumber;
                 }
 
@@ -99,17 +81,15 @@ class Lottery
     {
         $config = array_merge($this->config['numbers'], $config);
 
-        if (count($this->numberList) === 0) {
-            $this->parseNumbers();
-        }
-        arsort($this->numberList);
+        $numberCount = new NumberCount($this->lotteryDraw);
 
-        $numberList = $this->numberList;
+        $numberList = $numberCount->getNumbers($config);
+
         if (isset($config['limit']) && $config['limit'] != 0) {
             $numberList = array_slice($numberList, 0, $config['limit'], true);
         }
 
-        return (array)$numberList;
+        return $numberList;
     }
 
     /**
@@ -125,17 +105,13 @@ class Lottery
     {
         $config = array_merge($this->config['superNumbers'], $config);
 
-        if (count($this->superNumberList) === 0) {
-            $this->parseNumbers();
-        }
-        arsort($this->superNumberList);
+        $numberCount = new NumberCount($this->lotteryDraw);
 
-        $superNumberList = $this->superNumberList;
+        $superNumberList = $numberCount->getSuperNumbers($config);
         if (isset($config['limit']) && $config['limit'] != 0) {
             $superNumberList = array_slice($superNumberList, 0, $config['limit'], true);
         }
-
-        return (array)$superNumberList;
+        return $superNumberList;
     }
 
     /**
