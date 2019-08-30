@@ -39,7 +39,7 @@ class Lottery
             $lotteryDraw = [];
             $lotteryTimestamp = 0;
 
-            $handle = fopen('./data/file' . $year . '.csv', 'r');
+            $handle = fopen('../data/file' . $year . '.csv', 'r');
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $lotteryDraw[] = $data;
             }
@@ -119,7 +119,7 @@ class Lottery
     protected function loadConfig()
     {
         $config = [];
-        include './config.php';
+        include '../config.php';
         $this->config = $config;
         return $this;
     }

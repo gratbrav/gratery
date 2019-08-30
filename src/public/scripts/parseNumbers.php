@@ -1,7 +1,7 @@
 <?php
 
-require '../vendor/autoload.php';
-include '../config.php';
+require '../../vendor/autoload.php';
+include '../../config.php';
 
 use DiDom\Document;
 
@@ -14,7 +14,7 @@ $document = new Document($url, true);
 
 $posts = $document->find('.zahlensuche_rahmen');
 
-$fp = fopen('../data/file' . $year . '.csv', 'w');
+$fp = fopen('../../data/file' . $year . '.csv', 'w');
 
 foreach($posts as $post) {
     $numberList = [];
