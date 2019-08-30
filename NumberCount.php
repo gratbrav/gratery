@@ -25,10 +25,13 @@ class NumberCount extends Number
 
             // count super number
             if (isset($draw['superNumber'])) {
-                if (!isset($this->superNumberList[$draw['superNumber']])) {
-                    $this->superNumberList[$draw['superNumber']] = 0;
+                // count each number
+                foreach ((array)$draw['superNumber'] as $number) {
+                    if (!isset($this->superNumberList[$number])) {
+                        $this->superNumberList[$number] = 0;
+                    }
+                    $this->superNumberList[$number]++;
                 }
-                $this->superNumberList[$draw['superNumber']]++;
             }
         }
 

@@ -29,41 +29,39 @@ class Lottery
     }
 
     /**
-     * Load lottery numbers from url
+     * Load lottery numbers from file
      *
      * @return Lottery
      */
     protected function parseNumbers()
     {
-        for ($year = $this->config['startYear']; $year <= $this->config['currentYear']; $year++) {
+        $startYear = $this->config['startYear'];
+        $endYear = $this->config['currentYear'];
 
-            $url = $this->config['url'] . $year;
-            $document = new Document($url, true);
-
-            $posts = $document->find('.zahlensuche_rahmen');
-
-            foreach($posts as $post) {
-
-                $lotteryDraw = $post->find('.zahlensuche_datum');
-                // echo 'Import: ' . $lotteryDraw[0]->text() . '<br>';
-
-                $lotteryTimestamp = strtotime($lotteryDraw[0]->text());
-                $this->lotteryDraw[$lotteryTimestamp]['date'] = date('d.m.Y', strtotime($lotteryDraw[0]->text()));
-
-                $lotteryNumbers = $post->find('.zahlensuche_zahl');
-                foreach ($lotteryNumbers as $numberEntry) {
-                    $number = trim($numberEntry->text());
-                    $this->lotteryDraw[$lotteryTimestamp]['number'][] = $number;
-                }
-
-                $zuperZahl = $post->find('.zahlensuche_zz');
-                $superNumber = trim($zuperZahl[0]->text());
-                if ($superNumber != '') {
-                    $this->lotteryDraw[$lotteryTimestamp]['superNumber'] = $superNumber;
-                }
-
+        for ($year = $startYear; $year <= $endYear; $year++) {
+            $lotteryDraw = [];
+            $handle = fopen('./data/file' . $year . '.csv', 'r');
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                $lotteryDraw[] = $data;
             }
 
+            $numberResult = [];
+            foreach($lotteryDraw as $post) {
+                foreach ($post as $index => $number) {
+                    if ($index === 0) {
+                        $lotteryTimestamp = strtotime($number);
+                        continue;
+                    } else if ($index >= 1 && $index <= 6) {
+                        $numberResult['number'][] = $number;
+                        continue;
+                    } else if ($index === 7) {
+                        $numberResult['superNumber'][] = $number;
+                        continue;
+                    }
+                }
+            }
+
+            $this->lotteryDraw[$lotteryTimestamp] = $numberResult;
         }
         return $this;
     }
@@ -126,5 +124,4 @@ class Lottery
         $this->config = $config;
         return $this;
     }
-
 }
