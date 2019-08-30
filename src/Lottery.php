@@ -2,7 +2,6 @@
 
 namespace gratery\Lottery;
 
-require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/NumberCount.php';
 
 use DiDom\Document;
