@@ -1,0 +1,22 @@
+version: "3.2"
+services:
+  php:
+    build: './.docker/php/'
+    networks:
+      - backend
+    volumes:
+      - ./src/:/var/www/html/
+  apache:
+    build: './.docker/apache/'
+    depends_on:
+      - php
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src/:/var/www/html/
+networks:
+  frontend:
+  backend:
