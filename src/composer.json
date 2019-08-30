@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": ">=7.2",
         "imangazaliev/didom": "^1.14"
     }
 }

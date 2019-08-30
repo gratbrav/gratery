@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd2d693feb08c59f7273fa9e59333cd3",
+    "content-hash": "47afe5a5c30425d90ffc8f2fe95ef504",
     "packages": [
         {
             "name": "imangazaliev/didom",
-            "version": "1.14",
+            "version": "1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Imangazaliev/DiDOM.git",
-                "reference": "4bf50a91f3f81481816fa1ea0da5299b5219b86b"
+                "reference": "a8389cc26897f6bb8843363b4ea16e7ef16fb3c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Imangazaliev/DiDOM/zipball/4bf50a91f3f81481816fa1ea0da5299b5219b86b",
-                "reference": "4bf50a91f3f81481816fa1ea0da5299b5219b86b",
+                "url": "https://api.github.com/repos/Imangazaliev/DiDOM/zipball/a8389cc26897f6bb8843363b4ea16e7ef16fb3c3",
+                "reference": "a8389cc26897f6bb8843363b4ea16e7ef16fb3c3",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "parser",
                 "xml"
             ],
-            "time": "2018-12-17T18:48:24+00:00"
+            "time": "2019-01-17T11:01:36+00:00"
         }
     ],
     "packages-dev": [],
@@ -62,6 +62,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.2"
+    },
     "platform-dev": []
 }
