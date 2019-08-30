@@ -4,8 +4,6 @@ namespace gratery\Lottery;
 
 require __DIR__ . '/NumberCount.php';
 
-use DiDom\Document;
-
 class Lottery
 {
     /**
@@ -39,6 +37,8 @@ class Lottery
 
         for ($year = $startYear; $year <= $endYear; $year++) {
             $lotteryDraw = [];
+            $lotteryTimestamp = 0;
+
             $handle = fopen('./data/file' . $year . '.csv', 'r');
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $lotteryDraw[] = $data;
@@ -80,7 +80,7 @@ class Lottery
 
         $numberCount = new NumberCount($this->lotteryDraw);
 
-        $numberList = $numberCount->getNumbers($config);
+        $numberList = $numberCount->getNumbers();
 
         if (isset($config['limit']) && $config['limit'] != 0) {
             $numberList = array_slice($numberList, 0, $config['limit'], true);
@@ -104,7 +104,7 @@ class Lottery
 
         $numberCount = new NumberCount($this->lotteryDraw);
 
-        $superNumberList = $numberCount->getSuperNumbers($config);
+        $superNumberList = $numberCount->getSuperNumbers();
         if (isset($config['limit']) && $config['limit'] != 0) {
             $superNumberList = array_slice($superNumberList, 0, $config['limit'], true);
         }
