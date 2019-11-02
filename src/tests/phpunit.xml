@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true" bootstrap="Bootstrap.php">
+    <testsuites>
+        <testsuite name="gratery">
+            <directory suffix="Test.php">./</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <server name='HTTP_HOST' value='http://localhost' />
+    </php>
+</phpunit>
