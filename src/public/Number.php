@@ -51,14 +51,20 @@ abstract class Number
     /**
      * get all super numbers from lottery
      *
+     * @param array $config
      * @return array
      */
-    public function getSuperNumbers()
+    public function getSuperNumbers($config)
     {
         if (count($this->superNumberList) === 0) {
             $this->count();
         }
-        arsort($this->superNumberList);
+
+        if (isset($config['sort']) && $config['sort'] === 'desc') {
+            asort($this->superNumberList);
+        } else {
+            arsort($this->superNumberList);
+        }
 
         return (array)$this->superNumberList;
     }

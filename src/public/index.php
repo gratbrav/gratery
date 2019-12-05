@@ -24,8 +24,15 @@ foreach ($lottery->getNumbers(['sort' => 'desc']) as $index => $count) {
 
 echo '<br>';
 
-echo "SuperNumber - Count <br>";
+echo "SuperNumber (ASC)  - Count <br>";
 foreach ($lottery->getSuperNumbers() as $index => $count) {
+    echo "$index  - $count <br>";
+}
+
+echo '<br>';
+
+echo "SuperNumber (DESC)  - Count <br>";
+foreach ($lottery->getSuperNumbers(['sort' => 'desc']) as $index => $count) {
     echo "$index  - $count <br>";
 }
 

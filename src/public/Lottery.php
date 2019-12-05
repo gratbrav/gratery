@@ -104,7 +104,7 @@ class Lottery
 
         $numberCount = new NumberCount($this->lotteryDraw);
 
-        $superNumberList = $numberCount->getSuperNumbers();
+        $superNumberList = $numberCount->getSuperNumbers($config);
         if (isset($config['limit']) && $config['limit'] != 0) {
             $superNumberList = array_slice($superNumberList, 0, $config['limit'], true);
         }
