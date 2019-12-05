@@ -80,7 +80,7 @@ class Lottery
 
         $numberCount = new NumberCount($this->lotteryDraw);
 
-        $numberList = $numberCount->getNumbers();
+        $numberList = $numberCount->getNumbers($config);
 
         if (isset($config['limit']) && $config['limit'] != 0) {
             $numberList = array_slice($numberList, 0, $config['limit'], true);

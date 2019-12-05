@@ -30,14 +30,20 @@ abstract class Number
     /**
      * get all numbers from lottery
      *
+     * @param array $config
      * @return array
      */
-    public function getNumbers()
+    public function getNumbers($config)
     {
         if (count($this->numberList) === 0) {
             $this->count();
         }
-        arsort($this->numberList);
+
+        if (isset($config['sort']) && $config['sort'] === 'desc') {
+            asort($this->numberList);
+        } else {
+            arsort($this->numberList);
+        }
 
         return (array)$this->numberList;
     }
