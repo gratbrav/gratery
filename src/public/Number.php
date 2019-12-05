@@ -9,17 +9,17 @@ abstract class Number
     /**
      * @var array
      */
-    protected $lotteryDraw = [];
+    protected array $lotteryDraw = [];
 
     /**
      * @var array
      */
-    protected $numberList = [];
+    protected array $numberList = [];
 
     /**
      * @var array
      */
-    protected $superNumberList = [];
+    protected array $superNumberList = [];
 
     function __construct(&$lotteryDraw)
     {

@@ -9,12 +9,12 @@ class Lottery
     /**
      * @var array
      */
-    protected $config = [];
+    protected array $config = [];
 
     /**
      * @var array
      */
-    protected $lotteryDraw = [];
+    protected array $lotteryDraw = [];
 
     /**
      * Lottery constructor.
