@@ -19,7 +19,7 @@ class Lottery
     /**
      * Lottery constructor.
      */
-    function __construct()
+    public function __construct()
     {
         $this->loadConfig();
         $this->parseNumbers();
@@ -45,15 +45,15 @@ class Lottery
             }
 
             $numberResult = [];
-            foreach($lotteryDraw as $post) {
+            foreach ($lotteryDraw as $post) {
                 foreach ($post as $index => $number) {
                     if ($index === 0) {
                         $lotteryTimestamp = strtotime($number);
                         continue;
-                    } else if ($index >= 1 && $index <= 6) {
+                    } elseif ($index >= 1 && $index <= 6) {
                         $numberResult['number'][] = $number;
                         continue;
-                    } else if ($index === 7) {
+                    } elseif ($index === 7) {
                         $numberResult['superNumber'][] = $number;
                         continue;
                     }
@@ -62,6 +62,7 @@ class Lottery
 
             $this->lotteryDraw[$lotteryTimestamp] = $numberResult;
         }
+
         return $this;
     }
 
@@ -71,7 +72,7 @@ class Lottery
      * Configuration params:
      * - int limit  number of values to return
      *
-     * @param array  $config  configuration params
+     * @param array $config configuration params
      * @return array
      */
     public function getNumbers($config = [])
@@ -83,7 +84,7 @@ class Lottery
         $numberList = $numberCount->getNumbers($config);
 
         if (isset($config['limit']) && $config['limit'] != 0) {
-            $numberList = array_slice($numberList, 0, $config['limit'], true);
+            $numberList = array_slice($numberList, 0, $config['limit'], TRUE);
         }
 
         return $numberList;
@@ -95,7 +96,7 @@ class Lottery
      * Configuration params:
      * - int limit  number of values to return
      *
-     * @param array  $config  configuration params
+     * @param array $config configuration params
      * @return array
      */
     public function getSuperNumbers($config = [])
@@ -106,8 +107,9 @@ class Lottery
 
         $superNumberList = $numberCount->getSuperNumbers($config);
         if (isset($config['limit']) && $config['limit'] != 0) {
-            $superNumberList = array_slice($superNumberList, 0, $config['limit'], true);
+            $superNumberList = array_slice($superNumberList, 0, $config['limit'], TRUE);
         }
+
         return $superNumberList;
     }
 
@@ -121,6 +123,7 @@ class Lottery
         $config = [];
         include __DIR__ . '/../config.php';
         $this->config = $config;
+
         return $this;
     }
 }

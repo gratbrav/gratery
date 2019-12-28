@@ -21,7 +21,7 @@ abstract class Number
      */
     protected array $superNumberList = [];
 
-    function __construct(&$lotteryDraw)
+    public function __construct(&$lotteryDraw)
     {
         $this->lotteryDraw = $lotteryDraw;
     }
